@@ -2,8 +2,8 @@ package com.iflower.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.iflower.model.User;
-import com.iflower.repository.UserRepository;
+import com.iflower.model.Flower;
+import com.iflower.repository.FlowerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,34 +14,34 @@ import java.util.List;
 
 
 @RestController
-public class UserController {
+public class FlowerController {
     @Autowired
-    public UserRepository userRepository;
+    public FlowerRepository flowerRepository;
 
     @Autowired
     GsonBuilder gsonBuilder = new GsonBuilder();
 
     @CrossOrigin
-    @PostMapping("/users/add")
-    public ResponseEntity<String> addUser(@Valid @RequestBody User user) {
-        String username = user.getUsername();
-        if (userRepository.findByUsername(username) == null) {
-            userRepository.save(user);
+    @PostMapping("/flowers/add")
+    public ResponseEntity<String> addFlower(@Valid @RequestBody Flower flower) {
+        String name = flower.getName();
+        if (flowerRepository.findByName(name) == null) {
+            flowerRepository.save(flower);
             return new ResponseEntity<>("OK", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("User already exists!", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Flower already exists!", HttpStatus.CONFLICT);
         }
     }
 
     @CrossOrigin
-    @GetMapping("/users/get_all")
-    public String getAllUsers() {
-        List<User> list = userRepository.findAll();
+    @GetMapping("/flowers/get_all")
+    public String getAllFlowers() {
+        List<Flower> list = flowerRepository.findAll();
         List<String> jsonList = new ArrayList<>();
 
         Gson json = gsonBuilder.create();
-        for (User user : list) {
-            jsonList.add(json.toJson(user));
+        for (Flower flower : list) {
+            jsonList.add(json.toJson(flower));
         }
 
         return json.toJson(jsonList);

@@ -1,11 +1,11 @@
 package com.iflower.repository;
 
+import com.iflower.model.Flower;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.iflower.model.User;
 
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer>{
-    User findByUsername(String username);
+public interface FlowerRepository extends JpaRepository<Flower, Integer>{
+    Flower findByName(String name);
 }
