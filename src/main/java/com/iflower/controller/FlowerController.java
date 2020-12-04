@@ -44,7 +44,7 @@ public class FlowerController {
             jsonList.add(json.toJson(flower));
         }
 
-        return json.toJson(jsonList);
+        return "{items:" + json.toJson(jsonList) + "}";
     }
 
 }
