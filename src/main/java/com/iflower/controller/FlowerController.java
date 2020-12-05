@@ -44,10 +44,10 @@ public class FlowerController {
         for (Flower flower : list) {
             entities.add(flower.toJson());
         }
-        LinkedHashMap<String, List<LinkedHashMap<String, String>>> res = new LinkedHashMap<>();
-        res.put("items", entities);
+//        LinkedHashMap<String, List<LinkedHashMap<String, String>>> res = new LinkedHashMap<>();
+//        res.put("items", entities);
 
-        return new ResponseEntity<>(res, HttpStatus.OK);
+        return new ResponseEntity<>(entities, HttpStatus.OK);
     }
 
 }
