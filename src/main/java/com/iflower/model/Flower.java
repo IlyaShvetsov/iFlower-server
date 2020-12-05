@@ -23,15 +23,15 @@ public @Data class Flower {
 		res.append(id);
 
 		if (name != null) {
-			res.append(",\"name\":").append(name);
+			res.append(",\"name\":").append(name).append("\"");
 		} else {
-			res.append(",\"name\":").append(" ");
+			res.append(",\"name\":").append(" \"");
 		}
 
 		if (description != null) {
-			res.append(",\"description\":").append(description);
+			res.append(",\"description\":\"").append(description).append("\"");
 		} else {
-			res.append(",\"description\":").append(" ");
+			res.append(",\"description\":").append(" \"");
 		}
 
 		return res.append("}").toString();
