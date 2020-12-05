@@ -18,4 +18,23 @@ public @Data class Flower {
 	private String name;
 	private String description;
 
+	public String toJson() {
+		StringBuilder res = new StringBuilder("{\"id\":");
+		res.append(id);
+
+		if (name != null) {
+			res.append(",\"name\":").append(name);
+		} else {
+			res.append(",\"name\":").append(" ");
+		}
+
+		if (description != null) {
+			res.append(",\"description\":").append(description);
+		} else {
+			res.append(",\"description\":").append(" ");
+		}
+
+		return res.append("}").toString();
+	}
+
 }

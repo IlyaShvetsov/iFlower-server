@@ -37,14 +37,16 @@ public class FlowerController {
     @GetMapping("/flowers/get_all")
     public String getAllFlowers() {
         List<Flower> list = flowerRepository.findAll();
-        List<String> jsonList = new ArrayList<>();
 
-        Gson json = gsonBuilder.create();
-        for (Flower flower : list) {
-            jsonList.add(json.toJson(flower));
+        StringBuilder res = new StringBuilder("{\"items\":[");
+        for (int i = 0; i < list.size(); ++i) {
+            res.append(list.get(i).toJson());
+            if (i != list.size() - 1) {
+                res.append(",");
+            }
         }
 
-        return "{\"items\":" + json.toJson(jsonList) + "}";
+        return res.append("]}").toString();
     }
 
 }
