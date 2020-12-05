@@ -5,11 +5,13 @@ import com.google.gson.GsonBuilder;
 import com.iflower.model.Flower;
 import com.iflower.repository.FlowerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 
@@ -35,18 +37,17 @@ public class FlowerController {
 
     @CrossOrigin
     @GetMapping("/flowers/get_all")
-    public String getAllFlowers() {
+    public ResponseEntity<Object> getAllFlowers() {
         List<Flower> list = flowerRepository.findAll();
 
-        StringBuilder res = new StringBuilder("{\"items\":[");
-        for (int i = 0; i < list.size(); ++i) {
-            res.append(list.get(i).toJson());
-            if (i != list.size() - 1) {
-                res.append(",");
-            }
+        List<LinkedHashMap<String, String>> entities = new ArrayList<>();
+        for (Flower flower : list) {
+            entities.add(flower.toJson());
         }
+        LinkedHashMap<String, List<LinkedHashMap<String, String>>> res = new LinkedHashMap<>();
+        res.put("items", entities);
 
-        return res.append("]}").toString();
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
 }
