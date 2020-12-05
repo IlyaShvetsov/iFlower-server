@@ -23,9 +23,9 @@ public @Data class Flower {
 		res.append(id);
 
 		if (name != null) {
-			res.append(",\"name\":").append(name).append("\"");
+			res.append(",\"name\":\"").append(name).append("\"");
 		} else {
-			res.append(",\"name\":").append(" \"");
+			res.append(",\"name\":\"").append(" \"");
 		}
 
 		if (description != null) {
