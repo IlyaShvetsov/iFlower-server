@@ -58,7 +58,7 @@ public class UserController {
     }
 
     @CrossOrigin
-    @GetMapping("/users/login")
+    @PostMapping("/users/login")  // FIXME
     public ResponseEntity<String> login(@Valid @RequestBody User user) {
         String username = user.getUsername();
         String password = user.getPassword();
