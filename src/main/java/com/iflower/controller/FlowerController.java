@@ -1,6 +1,7 @@
 package com.iflower.controller;
 
 import com.iflower.model.Flower;
+import com.iflower.model.User;
 import com.iflower.repository.FlowerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,10 +38,24 @@ public class FlowerController {
 
         List<Map<String, String>> entities = new ArrayList<>();
         for (Flower flower : list) {
-            entities.add(flower.toJson());
+            if (flower != null) {
+                entities.add(flower.toJson());
+            }
         }
 
         return new ResponseEntity<>(entities, HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @PostMapping("/flowers/delete")
+    public ResponseEntity<String> delete(@Valid @RequestBody String name) {
+        Flower flower = flowerRepository.findByName(name);
+        if (flower == null) {
+            return new ResponseEntity<>("Wrong name", HttpStatus.FORBIDDEN);
+        } else {
+            flowerRepository.delete(flower);
+            return new ResponseEntity<>("OK", HttpStatus.OK);
+        }
     }
 
 }

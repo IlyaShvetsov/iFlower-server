@@ -37,10 +37,41 @@ public class UserController {
 
         List<Map<String, String>> entities = new ArrayList<>();
         for (User user : list) {
-            entities.add(user.toJson());
+            if (user != null) {
+                entities.add(user.toJson());
+            }
         }
 
         return new ResponseEntity<>(entities, HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @PostMapping("/users/delete")
+    public ResponseEntity<String> delete(@Valid @RequestBody String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            return new ResponseEntity<>("Wrong username", HttpStatus.FORBIDDEN);
+        } else {
+            userRepository.delete(user);
+            return new ResponseEntity<>("OK", HttpStatus.OK);
+        }
+    }
+
+    @CrossOrigin
+    @GetMapping("/users/login")
+    public ResponseEntity<String> login(@Valid @RequestBody User user) {
+        String username = user.getUsername();
+        String password = user.getPassword();
+        User userInRepository = userRepository.findByUsername(username);
+        if (userInRepository == null) {
+            return new ResponseEntity<>("Wrong username", HttpStatus.FORBIDDEN);
+        } else {
+            if (userInRepository.getPassword().equals(password)) {
+                return new ResponseEntity<>("OK", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Wrong password", HttpStatus.FORBIDDEN);
+            }
+        }
     }
 
 }

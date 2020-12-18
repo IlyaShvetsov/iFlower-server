@@ -15,9 +15,6 @@ import java.util.Map;
 @AllArgsConstructor
 public @Data class User {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-
 	private String username;
 	private String email;
     private String password;
@@ -25,7 +22,6 @@ public @Data class User {
 	public Map<String, String> toJson() {
 		Map<String, String > entity = new LinkedHashMap<>();
 		try {
-			entity.put("id", Integer.valueOf(id).toString());
 			entity.put("username", username);
 			entity.put("email", email);
 			entity.put("password", password);

@@ -15,16 +15,12 @@ import java.util.Map;
 @AllArgsConstructor
 public @Data class Flower {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-
 	private String name;
 	private String description;
 
 	public Map<String, String> toJson() {
 		Map<String, String > entity = new LinkedHashMap<>();
 		try {
-			entity.put("id", Integer.valueOf(id).toString());
 			entity.put("name", name);
 			entity.put("description", description);
 		} catch (Exception e) {}
