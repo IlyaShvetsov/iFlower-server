@@ -16,6 +16,8 @@ import java.util.Map;
 public @Data class Flower {
 	@Id
 	private String name;
+
+	@Column (columnDefinition = "LONGTEXT")
 	private String description;
 
 	public Map<String, String> toJson() {
