@@ -20,11 +20,14 @@ public @Data class Flower {
 	@Column (columnDefinition = "LONGTEXT")
 	private String description;
 
+	private String image;
+
 	public Map<String, String> toJson() {
 		Map<String, String > entity = new LinkedHashMap<>();
 		try {
 			entity.put("name", name);
 			entity.put("description", description);
+			entity.put("image", image);
 		} catch (Exception e) {}
 		return entity;
 	}
